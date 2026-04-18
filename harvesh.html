@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Royal Union | Harvesh & Saloni</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --royal-gold: #d4af37;
+            --dark-red: #4a0404;
+            --glass: rgba(255, 255, 255, 0.96);
+        }
+        
+        body {
+            background-color: #050505;
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Initial Loading Overlay */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s ease;
+        }
+
+        /* Main Invitation Reveal Styling */
+        #envelope-overlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, #3d0a0a 0%, #000 100%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 1.2s cubic-bezier(0.7, 0, 0.3, 1);
+        }
+
+        .envelope-open {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        /* Glassmorphism Luxury Card */
+        .card-container {
+            perspective: 1000px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+
+        .card-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .serif-font { font-family: 'Playfair Display', serif; }
+        .cursive-font { font-family: 'Great Vibes', cursive; }
+
+        /* Scroll Reveal Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Floating Background Elements */
+        .bg-element {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+            filter: sepia(1) saturate(5);
+        }
+
+        .music-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            background: var(--royal-gold);
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            cursor: pointer;
+        }
+
+        .counter-item {
+            background: #fff;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.1);
+            border-radius: 12px;
+            padding: 12px;
+            min-width: 75px;
+        }
+        
+        .rsvp-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="text-amber-500 animate-pulse text-xl tracking-[1em] uppercase font-light">Loading Experience...</div>
+    </div>
+
+    <!-- Background Elements -->
+    <div class="bg-element top-10 left-10 w-40 animate-pulse">🕉️</div>
+    <div class="bg-element bottom-20 right-10 w-32 rotate-12">🪷</div>
+
+    <!-- Music Control -->
+    <div id="music-trigger" class="music-btn" onclick="toggleMusic()">
+        <span id="music-icon" class="text-white text-2xl">🎵</span>
+    </div>
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Welcome Entrance -->
+    <div id="envelope-overlay">
+        <div class="relative group" onclick="openInvitation()">
+            <div class="absolute -inset-4 bg-amber-500 rounded-full blur opacity-20 group-hover:opacity-40 transition"></div>
+            <div class="bg-amber-600 w-24 h-24 rounded-full flex items-center justify-center cursor-pointer shadow-2xl relative">
+                <span class="text-white text-4xl animate-bounce">💌</span>
+            </div>
+        </div>
+        <p class="text-white mt-12 tracking-[0.8em] uppercase text-[10px] font-bold opacity-60">Tap to Witness the Magic</p>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="max-w-2xl mx-auto py-12 px-6 card-container">
+        
+        <!-- Section 1: Hero -->
+        <div class="glass-card shadow-2xl mb-12 overflow-hidden">
+            <div class="h-2 bg-gradient-to-r from-amber-200 via-amber-500 to-amber-200"></div>
+            <div class="p-10 md:p-16 text-center">
+                <div class="mb-8 reveal">
+                    <p class="text-4xl mb-4">🚩</p>
+                    <h3 class="text-[11px] uppercase tracking-[0.6em] text-amber-700 font-extrabold mb-2">|| Shri Ganeshaya Namah ||</h3>
+                    <div class="w-24 h-[1px] bg-amber-300 mx-auto"></div>
+                </div>
+
+                <div class="reveal">
+                    <p class="serif-font italic text-stone-400 mb-6">Two Souls, One Heart, One Forever...</p>
+                    <h1 class="cursive-font text-7xl md:text-8xl text-amber-600 drop-shadow-sm">Harvesh</h1>
+                    <p class="text-[10px] uppercase tracking-[0.5em] text-stone-300 my-6">And</p>
+                    <h1 class="cursive-font text-7xl md:text-8xl text-amber-600 drop-shadow-sm">Saloni</h1>
+                </div>
+
+                <!-- Countdown -->
+                <div class="mt-16 reveal bg-stone-50/50 p-8 rounded-3xl border border-stone-100">
+                    <p class="text-[10px] uppercase tracking-[0.3em] font-bold text-stone-400 mb-6 italic">The Countdown Begins</p>
+                    <div class="flex justify-center gap-4">
+                        <div class="counter-item"><span id="days" class="block text-3xl font-bold text-amber-700">00</span><span class="text-[8px] uppercase text-gray-400 font-bold">Days</span></div>
+                        <div class="counter-item"><span id="hours" class="block text-3xl font-bold text-amber-700">00</span><span class="text-[8px] uppercase text-gray-400 font-bold">Hours</span></div>
+                        <div class="counter-item"><span id="mins" class="block text-3xl font-bold text-amber-700">00</span><span class="text-[8px] uppercase text-gray-400 font-bold">Mins</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Details -->
+        <div class="glass-card p-10 mb-12 shadow-xl reveal">
+            <h2 class="serif-font text-3xl font-bold text-center mb-12 text-stone-800">Wedding Itinerary</h2>
+            
+            <div class="space-y-12">
+                <!-- Day 1 -->
+                <div class="flex gap-6 items-start reveal">
+                    <div class="w-16 h-16 bg-amber-100 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-amber-700 shadow-inner">24</div>
+                    <div>
+                        <h4 class="font-bold text-lg uppercase tracking-tight text-stone-800">Dinner Party (Malkin)</h4>
+                        <p class="text-amber-600 font-semibold mb-2 italic">Friday, April 2026</p>
+                        <p class="text-sm text-stone-500 leading-relaxed">Join us for a beautiful evening of music, dance, and a grand feast at our residence.</p>
+                    </div>
+                </div>
+
+                <!-- Day 2 -->
+                <div class="flex gap-6 items-start reveal">
+                    <div class="w-16 h-16 bg-red-800 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-white shadow-lg">25</div>
+                    <div>
+                        <h4 class="font-bold text-lg uppercase tracking-tight text-red-900">The Wedding Ceremony</h4>
+                        <p class="text-amber-600 font-semibold mb-2 italic">Saturday, April 2026</p>
+                        <p class="text-sm text-stone-500 leading-relaxed">Barat Departure: 05:00 PM<br>Wedding Rituals & Dinner: 08:00 PM Onwards</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Location -->
+        <div class="glass-card p-10 mb-12 shadow-xl text-center reveal">
+            <p class="text-[11px] uppercase tracking-widest text-amber-800 font-bold mb-4">The Venue</p>
+            <h3 class="serif-font text-3xl font-bold mb-2">Mohkampur, Chandausi</h3>
+            <p class="text-stone-500 mb-10 italic">Sambhal, Uttar Pradesh - 244412</p>
+            
+            <div class="relative group overflow-hidden rounded-2xl mb-8">
+                <div class="bg-stone-200 h-40 flex items-center justify-center">
+                    <p class="text-stone-400 text-xs font-mono">Interactive Map Placeholder</p>
+                </div>
+                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all">
+                    <p class="text-white font-bold text-sm tracking-widest">TAP TO NAVIGATE</p>
+                </div>
+            </div>
+
+            <a href="https://maps.google.com" class="inline-block px-12 py-5 bg-stone-900 text-amber-400 rounded-full text-[11px] font-bold uppercase tracking-[0.3em] hover:bg-black hover:scale-105 transition-all shadow-xl">Navigate via Google Maps</a>
+        </div>
+
+        <!-- Section 4: Host & RSVP -->
+        <div class="glass-card p-12 mb-12 shadow-xl text-center border-t-[6px] border-amber-500 reveal">
+            <h4 class="serif-font text-2xl font-bold mb-6">RSVP & Greetings</h4>
+            <p class="text-stone-500 text-sm mb-10 italic px-4">"Your blessings are our only desire. Please grace us with your presence."</p>
+            
+            <button onclick="toggleRSVP(true)" class="px-10 py-4 border-2 border-stone-800 text-stone-800 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-stone-800 hover:text-white transition-all">Will you join us?</button>
+            
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-10 text-left border-t border-stone-100 pt-10">
+                <div>
+                    <p class="text-[10px] uppercase font-bold text-amber-800 mb-2">Best Compliments</p>
+                    <p class="text-sm text-stone-600 leading-relaxed">Praveen, Viresh, Dharmendra & All Rana Family Members</p>
+                </div>
+                <div class="md:text-right">
+                    <p class="text-[10px] uppercase font-bold text-amber-800 mb-2">Host</p>
+                    <p class="font-bold serif-font text-xl">Nand Kishore Rana</p>
+                    <p class="text-red-800 font-bold mt-2 text-xs">+91 8475985592</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- RSVP Modal -->
+    <div id="rsvp-modal" class="rsvp-modal" onclick="toggleRSVP(false)">
+        <div class="bg-white rounded-3xl p-10 max-w-sm w-full text-center relative" onclick="event.stopPropagation()">
+            <h3 class="serif-font text-3xl font-bold mb-4">Will you attend?</h3>
+            <p class="text-stone-500 text-sm mb-8">Let us know if you'll be there!</p>
+            <div class="space-y-4">
+                <button onclick="confirmRSVP('Yes')" class="w-full py-4 bg-green-600 text-white rounded-xl font-bold">Yes, I will be there!</button>
+                <button onclick="confirmRSVP('No')" class="w-full py-4 bg-stone-100 text-stone-400 rounded-xl font-bold">Sorry, I can't make it</button>
+            </div>
+            <button onclick="toggleRSVP(false)" class="mt-8 text-xs text-stone-300 uppercase tracking-widest underline">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // 1. Initial Loader
+        window.onload = () => {
+            setTimeout(() => {
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(() => document.getElementById('loader').remove(), 1000);
+            }, 500);
+        };
+
+        // 2. Open Invitation Logic
+        function openInvitation() {
+            const overlay = document.getElementById('envelope-overlay');
+            overlay.classList.add('envelope-open');
+            
+            setTimeout(() => {
+                document.getElementById('main-content').classList.add('card-visible');
+                document.getElementById('music-trigger').style.display = 'flex';
+                // Trigger scroll reveals initially
+                reveal();
+                
+                const audio = document.getElementById('bgMusic');
+                audio.play().catch(() => console.log("Audio waiting for user interaction"));
+            }, 800);
+        }
+
+        // 3. Scroll Reveal Engine
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+
+        // 4. Music Engine
+        let isPlaying = true;
+        function toggleMusic() {
+            const audio = document.getElementById('bgMusic');
+            const icon = document.getElementById('music-icon');
+            if (isPlaying) {
+                audio.pause();
+                icon.innerText = '🔇';
+                icon.parentElement.classList.remove('animate-spin');
+            } else {
+                audio.play();
+                icon.innerText = '🎵';
+                icon.parentElement.classList.add('animate-spin');
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // 5. Countdown Engine
+        const weddingDate = new Date("April 25, 2026 20:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = weddingDate - now;
+            
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+            document.getElementById('days').innerText = d < 10 ? '0'+d : d;
+            document.getElementById('hours').innerText = h < 10 ? '0'+h : h;
+            document.getElementById('mins').innerText = m < 10 ? '0'+m : m;
+        }, 1000);
+
+        // 6. RSVP Logic
+        function toggleRSVP(show) {
+            document.getElementById('rsvp-modal').style.display = show ? 'flex' : 'none';
+        }
+
+        function confirmRSVP(ans) {
+            const modal = document.querySelector('#rsvp-modal .bg-white');
+            modal.innerHTML = `
+                <div class="py-10">
+                    <div class="text-5xl mb-6">✨</div>
+                    <h3 class="serif-font text-2xl font-bold mb-2">Thank You!</h3>
+                    <p class="text-stone-500 text-sm">We've noted your response as: <b>${ans}</b></p>
+                    <button onclick="toggleRSVP(false)" class="mt-10 px-8 py-3 bg-stone-900 text-white rounded-full text-xs font-bold uppercase tracking-widest">Close</button>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
